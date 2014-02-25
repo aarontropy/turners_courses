@@ -1,0 +1,67 @@
+<head>
+  <title>Turners of Louisville - Meteor Demo Page</title>
+</head>
+
+<body>
+</body>
+
+
+<template name="layout">
+    <div class="page-container">
+        <div class="page">
+            {{{yield}}}
+        </div>
+    </div>
+</template>
+
+<template name="home">
+    <ul>
+        <li><a href="{{pathFor 'sessionList'}}">Sessions</a></li>
+    </ul>
+</template>
+
+<template name="sessionList">
+    <h1>Sessions</h1>
+    <ul>
+    {{#each sessions}}
+        <li><a href="{{pathFor 'sessionDetail'}}">{{title}}</a></li>
+    {{else}}
+        <li>No Sessions</li>
+    {{/each}}
+    </ul>
+</template>
+
+<template name="sessionDetail">
+    {{#with session}}
+    <h1>{{title}}</h1>
+    <h2>Courses</h2>
+    <a href="{{pathFor 'courseAdd'}}"><i class="glyphicon glyphicon-plus"></i></a>
+    <ul>
+        {{#each courses}}
+        <li>{{title}}</li>
+        {{else}}
+        <li>No Courses for this session!!</li>
+        {{/each}}
+    </ul>
+    {{/with}}
+</template>
+
+
+
+<template name="courseDetail">
+    {{#with course}}
+    <h1>Course - {{title}}</h1>
+    <h2>for session ??</h2>
+    {{/with}}
+</template>
+
+
+<template name="courseEdit">
+    <h1>Adding a Course</h1>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="courseTitle" class="control-lablel">Title</label>
+            <input type="text" class="form-control" id="courseTitle">
+        </div>
+    </form>
+</template>
