@@ -1,5 +1,3 @@
-Sessions = new Meteor.Collection("sessions");
-Courses = new Meteor.Collection("courses");
 
 if (Meteor.isServer) {
     Meteor.startup(function() {
@@ -26,16 +24,9 @@ if (Meteor.isServer) {
 
 if (Meteor.isClient) {
     // ---- SessionList --------------------------------------------------------
-    Template.sessionList.helpers({
-        sessions: function() { return Sessions.find(); }
-    })
 
     // ---- SessionDetail ------------------------------------------------------
 
-    Template.sessionDetail.helpers({
-        session: function() { return Sessions.findOne(); },
-        courses: function() { return Courses.find(); }
-    })
     Template.sessionDetail.events = {
         'click #addCourse': function() {
             alert('adding course');

@@ -11,23 +11,32 @@ Router.map(function() {
     this.route('sessionList', {
         path: '/sessions',
         template: 'sessionList',
-        before: [
-            function() {
-                this.subscribe('sessions').wait();
+        waitOn: function() {
+            return this.subscribe('sessions');
+        },
+        data: function() {
+            return {
+                sessions: Sessions.find(),
             }
-        ]
+        }
     });
 
 
     this.route('sessionDetail', {
         path: '/session/:_id',
         template: 'sessionDetail',
-        before: [
-            function() { 
-                this.subscribe('session', this.params._id).wait(); 
-                this.subscribe('sessionCourses', this.params._id);
-            },
-        ]
+        waitOn: function() {
+            return [
+                this.subscribe('session', this.params._id),
+                this.subscribe('sessionCourses', this.params._id)
+            ];
+        },
+        data: function() {
+            return {
+                session: Sessions.findOne(), 
+                courses: Courses.find(),
+            }
+        }
     });
 
 
@@ -41,9 +50,11 @@ Router.map(function() {
             return Meteor.subscribe('session', this.params.session_id);
         },
         data: function() {
-            return {
-                session: Sessions.findOne({_id: this.params.session_id}),
+            dataObj = {};
+            if (this.params.session_id) {
+                dataObj.session = Sessions.findOne({_id: this.params.session_id});
             }
+            return dataObj;
         }
     });
 
