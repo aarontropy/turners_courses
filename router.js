@@ -34,6 +34,19 @@ Router.map(function() {
     /*  ------------------------------------------------------------------------
         Courses
         -----------------------------------------------------------------------*/
+    this.route('courseAdd', {
+        path: '/course/add',
+        template: 'courseEdit',
+        waitOn: function() {
+            return Meteor.subscribe('session', this.params.session_id);
+        },
+        data: function() {
+            return {
+                session: Sessions.findOne({_id: this.params.session_id}),
+            }
+        }
+    });
+
     this.route('courseDetail', {
         path: '/course/:_id',
         template: 'courseDetail',
@@ -49,8 +62,4 @@ Router.map(function() {
     //     template: 'courseEdit',
     // });
 
-    this.route('courseAdd', {
-        path: '/course/add',
-        template: 'courseAdd'
-    });
 });

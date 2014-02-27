@@ -42,6 +42,19 @@ if (Meteor.isClient) {
         },
     }
 
+
+    Template.courseEdit.events = {
+        'click #saveCourse': function() {
+            if (this.session) {
+                Courses.insert({
+                    title: $('#courseTitle').val(),
+                    session_id: this.session._id,
+                })
+                Router.go('sessionDetail', {_id: this.session._id});
+            }
+        }
+    }
+
     // ---- ClassEdit ----------------------------------------------------------
     // Template.courseEdit.helpers({
     //     course: function() { return Courses.findOne(); }
