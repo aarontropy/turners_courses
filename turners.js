@@ -18,6 +18,15 @@ if (Meteor.isServer) {
     Meteor.publish("sessionCourses", function(sessionId) {
         return Courses.find({session_id: sessionId});
     })
+    Meteor.publish("courseWithSession", function(id) {
+        // the naive approach is good enough here
+        var courseCursor = Courses.find({_id: id});
+        var session_id = Courses.findOne({_id: id}).session_id;
+        return [
+            courseCursor, 
+            Sessions.find({_id: session_id})
+        ];
+    })
 
 }
 
@@ -27,12 +36,7 @@ if (Meteor.isClient) {
 
     // ---- SessionDetail ------------------------------------------------------
 
-    Template.sessionDetail.events = {
-        'click #addCourse': function() {
-            alert('adding course');
-        },
-    }
-
+    
 
     Template.courseEdit.events = {
         'click #saveCourse': function() {

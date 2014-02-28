@@ -45,27 +45,49 @@ Router.map(function() {
         -----------------------------------------------------------------------*/
     this.route('courseAdd', {
         path: '/course/add',
-        template: 'courseEdit',
+        template: 'courseAdd',
         waitOn: function() {
             return Meteor.subscribe('session', this.params.session_id);
         },
         data: function() {
-            dataObj = {};
+            dataObj = {
+                course: {},
+            };
+
             if (this.params.session_id) {
-                dataObj.session = Sessions.findOne({_id: this.params.session_id});
+                dataObj.session = Sessions.findOne();
             }
             return dataObj;
+        }
+    });
+
+
+
+    this.route('courseEdit', {
+        path: '/course/edit/:_id',
+        template: 'courseEdit',
+        waitOn: function() {
+            return this.subscribe('courseWithSession', this.params._id)
+        },
+        data: function() {
+            return {
+                course: Courses.findOne(),
+                session: Sessions.findOne(),
+            }
         }
     });
 
     this.route('courseDetail', {
         path: '/course/:_id',
         template: 'courseDetail',
-        before: [
-            function() {
-                this.subscribe('course', this.params._id).wait();
-            }
-        ]
+        waitOn: function() {
+            return this.subscribe('courseWithSession', this.params._id)
+        },
+        data: function() {
+
+            course: Courses.findOne();
+            session: Sessions.findOne();
+        }
     });
 
     // this.route('courseEdit', {
