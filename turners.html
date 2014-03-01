@@ -41,7 +41,7 @@
         {{else}}
         <li>No Courses for this session!!</li>
         {{/each}}
-        <li>[<a href="{{pathFor 'courseAdd' session_id=_id}}">Add</a>]</li>
+        <li>[<a href="{{pathFor 'courseAdd' session_id=session._id}}">Add</a>]</li>
     </ul>
 </template>
 
@@ -58,32 +58,36 @@
     <h1>Editing a Course</h1>
     <h3>For {{session.title}}</h3>
     
-    {{#with course}}
-    {{>courseEditForm}}
-    {{/with}}
+    <form class="form-horizontal">
+        <input type="hidden" id="session_id" value="{{session.id}}">
+        {{#with course}}
+        {{>courseEditForm}}
+        {{/with}}
+    </form>
 </template>
 
 <template name="courseAdd">
     <h1>Adding a Course</h1>
     <h3>To {{session.title}}</h3>
-    {{>courseEditForm}}
+    <form class="form-horizontal">
+        <input type="hidden" id="session_id" value="{{session.id}}">
+        {{>courseEditForm}}
+    </form>
 </template>
 
 
 
 <template name="courseEditForm">
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label for="courseTitle" class="col-sm-2 control-lablel">Title</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="courseTitle" value="{{title}}">
-            </div>
+    <div class="form-group">
+        <label for="courseTitle" class="col-sm-2 control-lablel">Title</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="courseTitle" value="{{title}}">
         </div>
+    </div>
 
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="button" class="btn btn-default" id="saveCourse">Save</button>
-            </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="button" class="btn btn-default" id="saveCourse">Save</button>
         </div>
-    </form>
+    </div>
 </template>

@@ -36,17 +36,33 @@ if (Meteor.isClient) {
 
     // ---- SessionDetail ------------------------------------------------------
 
+    Template.courseEdit.helpers = {
+        session_id: function() {
+            course = Courses.findOne();
+            if (course) {
+                return course.session_id;
+            } else {
+                return
+            }
+        }
+    }
     
+    Template.courseAdd.events = {
+        'click #saveCourse': function() {
+            Courses.insert({
+                title: $('#courseTitle').val(),
+                session_id: this.session._id,
+            });
+            Router.go('sessionDetail', {_id: this.session._id});
+        }
+    }
 
     Template.courseEdit.events = {
         'click #saveCourse': function() {
-            if (this.session) {
-                Courses.insert({
-                    title: $('#courseTitle').val(),
-                    session_id: this.session._id,
-                })
-                Router.go('sessionDetail', {_id: this.session._id});
-            }
+            Courses.update(this._id, {$set: {
+                title: $('#courseTitle').val(),
+            }});
+            Router.go('sessionDetail', {_id: this.session_id});
         }
     }
 

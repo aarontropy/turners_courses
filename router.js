@@ -50,15 +50,10 @@ Router.map(function() {
             return Meteor.subscribe('session', this.params.session_id);
         },
         data: function() {
-            dataObj = {
-                course: {},
-            };
-
-            if (this.params.session_id) {
-                dataObj.session = Sessions.findOne();
+            return {
+                session: Sessions.findOne(),
             }
-            return dataObj;
-        }
+        },
     });
 
 
