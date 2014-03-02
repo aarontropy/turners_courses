@@ -67,6 +67,22 @@ if (Meteor.isClient) {
     }
 
 
+    Session.setDefault('showAddCourse', false);
+    Template.adminSessionEdit.helpers({
+            showAddCourse: function() {
+                return Session.get('showAddCourse');
+            },
+        })
+
+    Template.adminSessionEdit.events({
+            'click #btnAddCourse': function(event) {
+                console.log(Session.get('showAddCourse'));
+                Session.set('showAddCourse', true);
+                console.log(Session.get('showAddCourse'));
+            }
+        })
+
+
 
     // ---- ClassEdit ----------------------------------------------------------
     // Template.courseEdit.helpers({

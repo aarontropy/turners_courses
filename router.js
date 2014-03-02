@@ -24,7 +24,7 @@ Router.map(function() {
 
     this.route('sessionDetail', {
         path: '/session/:_id',
-        template: 'admin-sessionEdit',
+        template: 'adminSessionEdit',
         waitOn: function() {
             return [
                 this.subscribe('session', this.params._id),
@@ -36,7 +36,12 @@ Router.map(function() {
                 session: Sessions.findOne(), 
                 courses: Courses.find(),
             }
-        }
+        },
+        before: [
+            function() {
+                Session.set('showAddCourse', false);
+            }
+        ]
     });
 
 
