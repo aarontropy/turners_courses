@@ -66,6 +66,8 @@ if (Meteor.isClient) {
         }
     }
 
+
+
     // ---- ClassEdit ----------------------------------------------------------
     // Template.courseEdit.helpers({
     //     course: function() { return Courses.findOne(); }

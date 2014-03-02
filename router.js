@@ -24,7 +24,7 @@ Router.map(function() {
 
     this.route('sessionDetail', {
         path: '/session/:_id',
-        template: 'sessionDetail',
+        template: 'admin-sessionEdit',
         waitOn: function() {
             return [
                 this.subscribe('session', this.params._id),
