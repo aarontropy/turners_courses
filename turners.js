@@ -151,6 +151,24 @@ if (Meteor.isClient) {
         }
     })
 
+    Template.adminCourseEdit.rendered = function() {
+        $('#calendar').fullCalendar({
+            dayClick: function( date, allDay, jsEvent, view) {
+
+            },
+
+            eventClick: function(calEvent, jsEvent, view) {
+
+            },
+            events: function(start, end, callback) {
+                var course = Courses.findOne();
+                var meetings = courseMeetings(course);
+                console.log
+                callback(meetings);
+            },
+        })
+    }
+
 
     var courseRRule = function(course) {
         var wds = [RRule.SU, RRule.MO, RRule.TU, RRule.WE, RRule.TH, RRule.FR, RRule.SA];
@@ -162,6 +180,23 @@ if (Meteor.isClient) {
             byweekday: byweekday,
             count: count,
         });
+
+    }
+
+    var courseMeetings = function(course) {
+        var meetings = [];
+        var dates = courseRRule(course).all();
+
+
+        _.each(dates, function(date, idx) {
+            meetings.push({
+                id: course._id + "_" + idx,
+                title: course.title,
+                start: date,
+                color: colorList[course.index % colorList.length]
+            })
+        })
+        return meetings;
 
     }
 

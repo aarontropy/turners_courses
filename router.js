@@ -52,7 +52,6 @@ Router.map(function() {
         path: '/course/edit/:_id',
         template: 'adminCourseEdit',
         waitOn: function() {
-            console.log("subscribing to id " + this.params._id)
             return this.subscribe('courseWithSession', this.params._id)
         },
         data: function() {
