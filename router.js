@@ -9,7 +9,7 @@ Router.map(function() {
     });
 
     this.route('sessionList', {
-        path: '/sessions',
+        path: '/admin/sessions',
         template: 'sessionList',
         waitOn: function() {
             return this.subscribe('sessions');
@@ -23,7 +23,7 @@ Router.map(function() {
 
 
     this.route('sessionDetail', {
-        path: '/session/:_id',
+        path: '/admin/session/:_id',
         template: 'adminSessionEdit',
         waitOn: function() {
             return [
@@ -49,7 +49,7 @@ Router.map(function() {
         Courses
         -----------------------------------------------------------------------*/
     this.route('adminCourseEdit', {
-        path: '/course/edit/:_id',
+        path: '/admin/course/edit/:_id',
         template: 'adminCourseEdit',
         waitOn: function() {
             return this.subscribe('courseWithSession', this.params._id)
@@ -62,51 +62,5 @@ Router.map(function() {
         }
     })
 
-    this.route('courseAdd', {
-        path: '/course/add',
-        template: 'courseAdd',
-        waitOn: function() {
-            return Meteor.subscribe('session', this.params.session_id);
-        },
-        data: function() {
-            return {
-                session: Sessions.findOne(),
-            }
-        },
-    });
-
-
-
-    // this.route('courseEdit', {
-    //     path: '/course/edit/:_id',
-    //     template: 'courseEdit',
-    //     waitOn: function() {
-    //         return this.subscribe('courseWithSession', this.params._id)
-    //     },
-    //     data: function() {
-    //         return {
-    //             course: Courses.findOne(),
-    //             session: Sessions.findOne(),
-    //         }
-    //     }
-    // });
-
-    this.route('courseDetail', {
-        path: '/course/:_id',
-        template: 'courseDetail',
-        waitOn: function() {
-            return this.subscribe('courseWithSession', this.params._id)
-        },
-        data: function() {
-
-            course: Courses.findOne();
-            session: Sessions.findOne();
-        }
-    });
-
-    // this.route('courseEdit', {
-    //     path: '/course/edit/:_id',
-    //     template: 'courseEdit',
-    // });
 
 });

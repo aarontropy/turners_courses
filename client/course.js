@@ -53,6 +53,6 @@ Template.adminCourseEdit.rendered = function() {
 // ==== COURSE MEETING FORM ====================================================
 Template.courseMeetingsEditForm.helpers({
     isChecked: function(course, dayIdx) {
-        return course.rule.days[dayIdx] ? "checked" : "";
+        return (course.rule && course.rule.days[dayIdx]) ? "checked" : "";
     }
 })
