@@ -163,73 +163,8 @@ if (Meteor.isClient) {
     })
 
 
-    Template.adminCourseEdit.helpers({
-        meetings: function() {
-            return courseRRule(this.course).all();
-        }
-    })
+    
 
-    Template.adminCourseEdit.events({
-        'click #btnMeetings': function(event) {
-            rule = courseRRule(this.course);
-
-            console.log(rule)
-        }
-    })
-
-    Template.adminCourseEdit.rendered = function() {
-        $('#calendar').fullCalendar({
-            dayClick: function( date, allDay, jsEvent, view) {
-
-            },
-
-            eventClick: function(calEvent, jsEvent, view) {
-
-            },
-            events: function(start, end, callback) {
-                var course = Courses.findOne();
-                var meetings = courseMeetings(course);
-                console.log
-                callback(meetings);
-            },
-        })
-    }
-
-
-    var courseRRule = function(course) {
-        var wds = [RRule.SU, RRule.MO, RRule.TU, RRule.WE, RRule.TH, RRule.FR, RRule.SA];
-        var byweekday = _.filter(wds, function(wd, idx) { return course.rule.days[idx]; });
-        var count = byweekday.length * (course.weeks || 6);
-        
-        return new RRule({
-            freq: RRule.WEEKLY,
-            byweekday: byweekday,
-            count: count,
-        });
-
-    }
-
-    var courseMeetings = function(course) {
-        var meetings = [];
-        var dates = courseRRule(course).all();
-
-
-        _.each(dates, function(date, idx) {
-            meetings.push({
-                id: course._id + "_" + idx,
-                title: course.title,
-                start: date,
-                color: colorList[course.index % colorList.length]
-            })
-        })
-        return meetings;
-
-    }
-
-    var insertCourse = function(course) {
-        // console.log(course);
-        Courses.insert(course);
-    }
 
 
 
