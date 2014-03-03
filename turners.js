@@ -30,11 +30,35 @@ if (Meteor.isServer) {
 
 }
 
+colorList = [
+'#FF0000',
+'#FFCE00',
+'#3216B0',
+'#00CC00',
+'#BF3030',
+'#BFA430',
+'#3D2D84',
+'#269926',
+'#A60000',
+'#A68600',
+'#1B0773',
+'#008500',
+'#FF4040',
+'#FFDA40',
+'#644AD8',
+'#39E639',
+'#FF7373',
+'#FFE473',
+'#8370D8',
+'#67E667',
+]
+
 
 if (Meteor.isClient) {
-    // ---- SessionList --------------------------------------------------------
 
-    // ---- SessionDetail ------------------------------------------------------
+    Handlebars.registerHelper('colorList', function(index) {
+        return colorList[index % colorList.length];
+    })
 
     Template.courseEdit.helpers = {
         session_id: function() {
@@ -76,11 +100,76 @@ if (Meteor.isClient) {
 
     Template.adminSessionEdit.events({
             'click #btnAddCourse': function(event) {
-                console.log(Session.get('showAddCourse'));
                 Session.set('showAddCourse', true);
-                console.log(Session.get('showAddCourse'));
+            },
+            'click .btnEditCourse': function(event) {
+                Router.go('adminCourseEdit', {_id: this._id});
+            },
+            'click .btnDeleteCourse': function(event) {
+                console.log("removing " + this.title);
             }
         })
+
+    Template.sessionCourseAddModal.events({
+        'click .closeModal': function(event) {
+            Session.set('showAddCourse', false);
+        },
+        'click #save': function(event, tmpl) {
+            insertCourse({
+                title: tmpl.find('input#courseTitle').value,
+                index: Courses.find().count(),
+                session_id: this.session._id,
+                rule: {
+                    days: [
+                        tmpl.find('input#courseSun').checked,
+                        tmpl.find('input#courseMon').checked,
+                        tmpl.find('input#courseTue').checked,
+                        tmpl.find('input#courseWed').checked,
+                        tmpl.find('input#courseThu').checked,
+                        tmpl.find('input#courseFri').checked,
+                        tmpl.find('input#courseSat').checked,
+                    ],
+                    weeks: tmpl.find('input#courseWeeks').value,
+                }
+            });
+            Session.set('showAddCourse', false);
+        },
+    })
+
+
+    Template.adminCourseEdit.helpers({
+        meetings: function() {
+            return courseRRule(this.course).all();
+        }
+    })
+
+    Template.adminCourseEdit.events({
+        'click #btnMeetings': function(event) {
+            rule = courseRRule(this.course);
+
+            console.log(rule)
+        }
+    })
+
+
+    var courseRRule = function(course) {
+        var wds = [RRule.SU, RRule.MO, RRule.TU, RRule.WE, RRule.TH, RRule.FR, RRule.SA];
+        var byweekday = _.filter(wds, function(wd, idx) { return course.rule.days[idx]; });
+        var count = byweekday.length * (course.weeks || 6);
+        
+        return new RRule({
+            freq: RRule.WEEKLY,
+            byweekday: byweekday,
+            count: count,
+        });
+
+    }
+
+    var insertCourse = function(course) {
+        // console.log(course);
+        Courses.insert(course);
+    }
+
 
 
 

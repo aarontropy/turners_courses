@@ -48,6 +48,21 @@ Router.map(function() {
     /*  ------------------------------------------------------------------------
         Courses
         -----------------------------------------------------------------------*/
+    this.route('adminCourseEdit', {
+        path: '/course/edit/:_id',
+        template: 'adminCourseEdit',
+        waitOn: function() {
+            console.log("subscribing to id " + this.params._id)
+            return this.subscribe('courseWithSession', this.params._id)
+        },
+        data: function() {
+            return {
+                course: Courses.findOne(),
+                session: Sessions.findOne(),
+            }
+        }
+    })
+
     this.route('courseAdd', {
         path: '/course/add',
         template: 'courseAdd',
@@ -63,19 +78,19 @@ Router.map(function() {
 
 
 
-    this.route('courseEdit', {
-        path: '/course/edit/:_id',
-        template: 'courseEdit',
-        waitOn: function() {
-            return this.subscribe('courseWithSession', this.params._id)
-        },
-        data: function() {
-            return {
-                course: Courses.findOne(),
-                session: Sessions.findOne(),
-            }
-        }
-    });
+    // this.route('courseEdit', {
+    //     path: '/course/edit/:_id',
+    //     template: 'courseEdit',
+    //     waitOn: function() {
+    //         return this.subscribe('courseWithSession', this.params._id)
+    //     },
+    //     data: function() {
+    //         return {
+    //             course: Courses.findOne(),
+    //             session: Sessions.findOne(),
+    //         }
+    //     }
+    // });
 
     this.route('courseDetail', {
         path: '/course/:_id',
