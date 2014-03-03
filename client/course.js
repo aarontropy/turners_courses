@@ -1,7 +1,7 @@
 // ==== ADMIN COURSE EDIT ======================================================
 Template.adminCourseEdit.helpers({
     meetings: function() {
-        return courseRRule(this.course).all();
+        return courseMeetings(this.course);
     }
 })
 
@@ -21,17 +21,10 @@ Template.adminCourseEdit.events({
                     tmpl.find('input#courseFri').checked,
                     tmpl.find('input#courseSat').checked,
                 ],
-                weeks: tmpl.find('input#courseWeeks').value,
+                count: tmpl.find('input#courseCount').value,
             },
         };
-        console.log(this.course);
-        console.log(course);
         Courses.update(this.course._id, {$set: course});
-    },
-    'click #btnMeetings': function(event) {
-        rule = courseRRule(this.course);
-
-        console.log(rule)
     }
 })
 
@@ -48,7 +41,6 @@ Template.adminCourseEdit.rendered = function() {
         events: function(start, end, callback) {
             var course = Courses.findOne();
             var meetings = courseMeetings(course);
-            console.log
             callback(meetings);
         },
     })
