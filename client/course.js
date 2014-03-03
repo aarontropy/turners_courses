@@ -7,9 +7,10 @@ Template.adminCourseEdit.helpers({
 
 Template.adminCourseEdit.events({
     'click .saveCourse': function(event, tmpl) {
-        course = {
+        var startDate = tmpl.find('input#courseStartDate').value;
+        var course = {
             title: tmpl.find('input#courseTitle').value,
-            startDate: tmpl.find('input#courseStartDate').value,
+            startDate: (startDate) ? moment(startDate): undefined,
             instructor: tmpl.find('input#courseInstructor').value,
             rule: {
                 days: [
@@ -22,6 +23,8 @@ Template.adminCourseEdit.events({
                     tmpl.find('input#courseSat').checked,
                 ],
                 count: tmpl.find('input#courseCount').value,
+                startTime: tmpl.find('input#courseStartTime').value,
+                duration: Number(tmpl.find('input#courseDuration').value),
             },
         };
         Courses.update(this.course._id, {$set: course});
