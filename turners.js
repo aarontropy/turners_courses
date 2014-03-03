@@ -100,7 +100,8 @@ if (Meteor.isClient) {
 
     Template.adminSessionEdit.events({
             'click #btnAddCourse': function(event) {
-                Session.set('showAddCourse', true);
+                insertCourse({title: 'New Course', session_id: this.session._id });
+                // Session.set('showAddCourse', true);
             },
             'click .btnEditCourse': function(event) {
                 Router.go('adminCourseEdit', {_id: this._id});
