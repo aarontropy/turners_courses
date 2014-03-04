@@ -1,0 +1,134 @@
+<template name="adminSessionEdit">
+    <div class="container">
+      <h1>{{session.title}}</h1>
+      <h4>Starting {{session.startDate}}</h4>
+        <div class="panel panel-default">
+              <div class="panel-heading clearfix">
+                    <h3 class="panel-title pull-left">Details</h3>
+                    <button type="button" class="btn btn-xs btn-default pull-right saveSession">Save</button>
+              </div>
+
+            <div class="panel-body">
+
+                <form action="" method="POST" class="form-horizontal" role="form">                        
+                        <div class="form-group">
+                            <label for="sessionTitle" class="col-sm-2 control-label">Title</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="sessionTitle" id="sessionTitle" class="form-control" value="{{session.title}}" required="required" title="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sessionStartDate" class="col-sm-2 control-label">Start Date</label>
+                            <div class="col-sm-4">
+                                <input type="date" name="sessionStartDate" id="sessionStartDate" class="form-control" value="{{session.startDate}}" required="required" title="">
+                            </div>
+                        </div>
+                
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button type="button" id="btnSaveSession" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                </form>
+
+
+            </div>
+        </div>
+
+        <div class="panel panel-info">
+              <div class="panel-heading">
+                    <h3 class="panel-title">Courses</h3>
+              </div>
+              <div class="panel-body">
+                    <button type="button" id="btnAddCourse" class="btn btn-default"><i class="glyphicon glyphicon-plus"></i>Add Course</button>
+                    courses
+              </div>
+
+              <div class="row">
+                  
+                  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                      
+                      <table class="table table-hover">
+                          <thead>
+                              <tr>
+                                    <th style="width: 10px;"></th>
+                                    <th>Course</th>
+                                    <th>Instructor</th>
+                                    <th>Actions</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            {{#each courses}}
+                            {{>sessionCourseTableRow}}
+                            {{else}}
+                            <tr><td></td><td>No courses</td></tr>
+                            {{/each}}
+                          </tbody>
+                      </table>
+
+                  </div>
+
+                  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                      <div class="panel panel-warning">
+                          <div class="panel-body">
+                             Placeholder
+                          </div>
+                      </div>
+                  </div>
+
+              </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Schedule</h3>
+            </div>
+            <div class="panel-body">
+              <div id="calendar"></div>
+            </div>
+        </div>
+
+    </div>
+</template>
+
+<template name="sessionCourseTableRow">
+    <tr>
+        <td style="background-color: {{colorList index}};">&nbsp;</td>
+        <td>{{title}}</td>
+        <td>{{instructor}}</td>
+        <td>
+            <div class="btn-toolbar" role="toolbar">
+              <div class="btn-group">
+                <button type="button" class="btn btn-default btnEditCourse"><span class="glyphicon glyphicon-edit"></span></button>
+                <button type="button" class="btn btn-default btnDeleteCourse"><span class="glyphicon glyphicon-remove"></span></button>
+              </div>
+            </div>
+        </td>
+    </tr>
+</template>
+
+<template name="sessionCourseAddModal">
+    <div class="modal show" id="myModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          
+          <div class="modal-header">
+            <button type="button" class="close closeModal" data-dismiss="modal" >&times;</button>
+            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+          </div>
+          
+          <div class="modal-body">
+            {{>courseEditForm}}
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default closeModal" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="save">Save changes</button>
+          </div>
+       
+        </div>
+      </div>
+    </div>
+</template>
+
