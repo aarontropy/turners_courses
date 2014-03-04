@@ -10,3 +10,8 @@ iron-router
 bootstrap-3
 fullcalendar
 moment
+accounts-facebook
+accounts-google
+accounts-password
+roles
+accounts-ui

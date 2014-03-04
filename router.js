@@ -60,6 +60,45 @@ Router.map(function() {
                 session: Sessions.findOne(),
             }
         }
+    });
+
+
+
+    this.route('adminUserEdit', {
+        path: '/admin/user/edit/:_id',
+        template: 'adminUserEdit',
+        waitOn: function() {
+            return Meteor.subscribe('singleUser', this.params._id);
+        }
+    });
+
+    this.route('adminUserList', {
+        path: '/admin/users',
+        template: 'adminUserList',
+        waitOn: function() {
+            return Meteor.subscribe('allUsers');
+        },
+        data: function() {
+            Meteor.users.find().forEach(function(user) {
+                console.log(user)
+            })
+            return {
+                users: Meteor.users.find(),
+            }
+        }
+    });
+
+    this.route('adminHome', {
+        path: '/admin',
+        template: 'adminDashboard',
+    });
+
+    this.route('profile', {
+        path: '/profile/:_id',
+        template: 'profileEdit',
+        data: function() {
+            return { user: Meteor.user() };
+        }, 
     })
 
 

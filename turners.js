@@ -1,11 +1,39 @@
 
+
+
+
 if (Meteor.isServer) {
+
     Meteor.startup(function() {
+
         if (Sessions.find().count() == 0) {
             for (var i=0; i<4; i++) {
                 Sessions.insert({title: "Test Session " + i});
             }
         }
+
+        Meteor.roles.remove({});
+        if (Roles.getAllRoles().count()==0) {
+            Roles.createRole('administrator');
+            Roles.createRole('instructor');
+        }
+
+        superAdmin = Meteor.users.findOne({username: 'admin'});
+        if (!superAdmin) {
+            superAdmin = Accounts.createUser({
+                username: 'admin',
+                email: 'admin@example.com',
+                password: 'superadmin',
+                profile: {name: "The Super-Duper Administrator"}
+            });
+
+            Roles.addUsersToRoles(superAdmin, ['admin'])
+        }
+
+
+
+
+
     });
 
 
@@ -27,6 +55,12 @@ if (Meteor.isServer) {
             Sessions.find({_id: session_id})
         ];
     })
+    Meteor.publish("singleUser", function(userId) {
+        return Meteor.users.find(userId);
+    });
+    Meteor.publish("allUsers", function() {
+        return Meteor.users.find();
+    });
 
 }
 
@@ -55,6 +89,10 @@ colorList = [
 
 
 if (Meteor.isClient) {
+    Accounts.ui.config({
+        passwordSignupFields: 'USERNAME_AND_EMAIL'
+    })
+    
 
     Handlebars.registerHelper('colorList', function(index) {
         return colorList[index % colorList.length];
