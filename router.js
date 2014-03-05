@@ -35,15 +35,10 @@ Router.map(function() {
         },
         data: function() {
             return {
-                session: Sessions.findOne(), 
+                session: Sessions.findOne(),
                 courses: Courses.find(),
             }
         },
-        before: [
-            function() {
-                Session.set('showAddCourse', false);
-            }
-        ]
     });
 
 
