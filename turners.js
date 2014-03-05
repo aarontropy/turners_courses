@@ -12,7 +12,6 @@ if (Meteor.isServer) {
             }
         }
 
-        Meteor.roles.remove({});
         if (Roles.getAllRoles().count()==0) {
             Roles.createRole('administrator');
             Roles.createRole('instructor');
@@ -26,10 +25,11 @@ if (Meteor.isServer) {
                 password: 'superadmin',
                 profile: {name: "The Super-Duper Administrator"}
             });
-
-            Roles.addUsersToRoles(superAdmin, ['admin'])
         }
-
+        if (!Roles.userIsInRole(superAdmin, ['administrator'])) {
+            Roles.addUsersToRoles(superAdmin, ['administrator']);
+        }
+         
 
 
 
@@ -60,6 +60,10 @@ if (Meteor.isServer) {
     });
     Meteor.publish("allUsers", function() {
         return Meteor.users.find();
+    });
+
+    Meteor.publish(null, function(){
+        return Meteor.roles.find({});
     });
 
 }

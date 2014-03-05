@@ -1,6 +1,40 @@
+<template name="adminLayout">
+    {{>navbar}}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 sidebar">
+                {{>adminSideNav}}
+            </div>
+
+            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 main">
+                {{{yield}}}
+            </div>
+        </div>
+    </div>
+</template>
+
+
 <template name="adminDashboard">
     <div class="container">
-        <h1>Dashboard</h1>
+        <h1 class="page-header">Dashboard</h1>
+
+        <div class="panel panel-default">
+              <div class="panel-heading">
+                    <h3 class="panel-title">Users</h3>
+              </div>
+              <div class="panel-body">
+                    {{>adminUserTable}}
+              </div>
+        </div>
+
     </div>
 
+</template>
+
+
+
+<template name="adminSideNav">
+    <ul class="nav nav-sidebar">
+        <li><a href="{{pathFor 'sessionList'}}">Sessions</li>
+    </ul>
 </template>

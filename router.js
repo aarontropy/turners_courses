@@ -11,6 +11,7 @@ Router.map(function() {
     this.route('sessionList', {
         path: '/admin/sessions',
         template: 'sessionList',
+        layoutTemplate: 'adminLayout',
         waitOn: function() {
             return this.subscribe('sessions');
         },
@@ -22,9 +23,10 @@ Router.map(function() {
     });
 
 
-    this.route('sessionDetail', {
+    this.route('adminSessionEdit', {
         path: '/admin/session/:_id',
         template: 'adminSessionEdit',
+        layoutTemplate: 'adminLayout',
         waitOn: function() {
             return [
                 this.subscribe('session', this.params._id),
@@ -51,6 +53,7 @@ Router.map(function() {
     this.route('adminCourseEdit', {
         path: '/admin/course/edit/:_id',
         template: 'adminCourseEdit',
+        layoutTemplate: 'adminLayout',
         waitOn: function() {
             return this.subscribe('courseWithSession', this.params._id)
         },
@@ -67,14 +70,22 @@ Router.map(function() {
     this.route('adminUserEdit', {
         path: '/admin/user/edit/:_id',
         template: 'adminUserEdit',
+        layoutTemplate: 'adminLayout',
         waitOn: function() {
             return Meteor.subscribe('singleUser', this.params._id);
+        },
+        data: function() {
+            return {
+                targetUser: Meteor.users.findOne(this.params._id),
+                roles: Meteor.roles.find(),
+            }
         }
     });
 
     this.route('adminUserList', {
         path: '/admin/users',
         template: 'adminUserList',
+        layoutTemplate: 'adminLayout',
         waitOn: function() {
             return Meteor.subscribe('allUsers');
         },
@@ -91,6 +102,10 @@ Router.map(function() {
     this.route('adminHome', {
         path: '/admin',
         template: 'adminDashboard',
+        layoutTemplate: 'adminLayout',
+        waitOn: function() {
+            return Meteor.subscribe('allUsers');
+        }
     });
 
     this.route('profile', {
