@@ -140,44 +140,6 @@ if (Meteor.isClient) {
             },
         })
 
-    Template.adminSessionEdit.events({
-            'click #btnAddCourse': function(event) {
-                insertCourse({title: 'New Course', session_id: this.session._id });
-                // Session.set('showAddCourse', true);
-            },
-            'click .btnEditCourse': function(event) {
-                Router.go('adminCourseEdit', {_id: this._id});
-            },
-            'click .btnDeleteCourse': function(event) {
-                console.log("removing " + this.title);
-            },
-            'click #btnSaveSession': function(event, tmpl) {
-                Sessions.update(this.session._id, {$set: {
-                    title: tmpl.find('input#sessionTitle').value,
-                    startDate: tmpl.find('input#sessionStartDate').value
-                }})
-            }
-        })
-
-    Template.adminSessionEdit.rendered = function() {
-        $('#calendar').fullCalendar({
-            dayClick: function( date, allDay, jsEvent, view) {
-
-            },
-
-            eventClick: function(calEvent, jsEvent, view) {
-
-            },
-            events: function(start, end, callback) {
-                var courses = Courses.find();
-                var meetings = [];
-                courses.forEach(function(course) {
-                    meetings = meetings.concat(courseMeetings(course));
-                });
-                callback(meetings);
-            },
-        })
-    }
 
     Template.sessionCourseAddModal.events({
         'click .closeModal': function(event) {
