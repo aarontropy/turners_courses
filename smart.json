@@ -5,6 +5,7 @@
     "fullcalendar": {},
     "moment": {},
     "roles": {},
-    "font-awesome": {}
+    "font-awesome": {},
+    "require": {}
   }
 }

@@ -24,14 +24,11 @@ Router.map(function() {
 
 
     this.route('adminSemesterEdit', {
-        path: '/admin/semester/:_id',
+        path: '/admin/semester/:slug',
         template: 'adminSemesterEdit',
         layoutTemplate: 'adminLayout',
         waitOn: function() {
-            return [
-                this.subscribe('semester', this.params._id),
-                this.subscribe('semesterCourses', this.params._id)
-            ];
+            return this.subscribe('semesterBySlug', this.params.slug);
         },
         data: function() {
             return {

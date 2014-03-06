@@ -6,9 +6,11 @@ if (Meteor.isServer) {
 
     Meteor.startup(function() {
 
+        // Semesters.remove({});
+        // Courses.remove({});
         if (Semesters.find().count() == 0) {
             for (var i=0; i<4; i++) {
-                Semesters.insert({title: "Test Semester " + i});
+                Semesters.insertSemester({title: "Test Semester " + i});
             }
         }
 
@@ -42,8 +44,17 @@ if (Meteor.isServer) {
     Meteor.publish("semesters", function() {
         return Semesters.find();
     });
-    Meteor.publish("semester", function(id) {
-        return Semesters.find({_id: id });
+    Meteor.publish("semester", function(_id) {
+        return Semesters.find(_id);
+    });
+    Meteor.publish("semesterBySlug", function(slug) {
+        var semesterCur = Semesters.find({slug: slug});
+        var semester = Semesters.findOne({slug: slug});
+        var semester_id = (semester) ? semester._id : undefined;
+        return [
+            semesterCur,
+            Courses.find({semester_id: semester_id}),
+        ];
     })
     Meteor.publish("semesterCourses", function(semesterId) {
         return Courses.find({semester_id: semesterId});

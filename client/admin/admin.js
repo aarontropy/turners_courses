@@ -43,7 +43,7 @@ Template.adminSemesterEdit.events({
             title: tmpl.find('input#semesterTitle').value,
             startDate: tmpl.find('input#semesterStartDate').value
         }})
-    }
+    },
 });
 
 Template.adminSemesterEdit.rendered = function() {
@@ -59,11 +59,14 @@ Template.adminSemesterEdit.rendered = function() {
             var courses = Courses.find();
             var meetings = [];
             courses.forEach(function(course) {
-                meetings = meetings.concat(courseMeetings(course));
+                console.log(course)
+                meetings = meetings.concat(Courses.courseMeetings(course));
             });
             callback(meetings);
         },
-    })
+    });
+
+
 }
 
 

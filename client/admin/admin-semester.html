@@ -2,12 +2,12 @@
     <div class="container">
       <h1 class="page-header">{{semester.title}}</h1>
       <h4>Starting {{semester.startDate}}</h4>
-        <div class="panel panel-default">
-              <div class="panel-heading clearfix">
-                    <h3 class="panel-title pull-left">Details</h3>
-                    <button type="button" class="btn btn-xs btn-default pull-right saveSemester">Save</button>
-              </div>
 
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h3 class="panel-title pull-left">Details</h3>
+                <button type="button" class="btn btn-xs btn-default pull-right saveSemester">Save</button>
+            </div>
             <div class="panel-body">
 
                 <form action="" method="POST" class="form-horizontal" role="form">                        
@@ -31,9 +31,17 @@
                             </div>
                         </div>
                 </form>
-
-
             </div>
+        </div>
+
+        <div class="panel panel-default">
+              <div class="panel-heading clearfix">
+                    <h3 class="panel-title pull-left">Description</h3>
+                    <button type="button" class="btn btn-xs btn-default pull-right saveSemester">Save</button>
+              </div>
+              <div class="panel-body">
+                    <div id="semesterDescription"></div>
+              </div>
         </div>
 
         <div class="panel panel-info">
