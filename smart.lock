@@ -6,7 +6,8 @@
       "bootstrap-3": {},
       "fullcalendar": {},
       "moment": {},
-      "roles": {}
+      "roles": {},
+      "font-awesome": {}
     },
     "packages": {
       "iron-router": {
@@ -16,8 +17,8 @@
       },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
-        "tag": "v3.1.0-1",
-        "commit": "329dccb08bfc18c635676dea600ac9953162cda9"
+        "tag": "v3.1.1-1",
+        "commit": "63dd38968828bb8963636df93e9a1c45e2dfe67e"
       },
       "fullcalendar": {
         "git": "https://github.com/TimHeckel/meteor-fullcalendar.git",
@@ -33,6 +34,11 @@
         "git": "https://github.com/alanning/meteor-roles.git",
         "tag": "v1.2.6",
         "commit": "f2a9058281f8f2fe028767841d7445aadd6893cf"
+      },
+      "font-awesome": {
+        "git": "https://github.com/nate-strauser/meteor-font-awesome.git",
+        "tag": "v4.0.3",
+        "commit": "61e9361384347547ae144f8228faa4deffda23db"
       },
       "jquery-ui": {
         "git": "https://github.com/TimHeckel/meteor-jquery-ui.git",

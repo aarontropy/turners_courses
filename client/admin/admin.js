@@ -141,12 +141,23 @@ Template.semesterDashboardTableRow.helpers({
     },
     activateButtonIcon: function(active) {
         return (active) ? "glyphicon glyphicon-star" : "glyphicon glyphicon-star-empty";
+    },
+    lockButtonIcon: function(locked) {
+        return (locked) ? "fa fa-lock" : "fa fa-unlock";
+    },
+    visibleButtonIcon: function(visible) {
+        return (visible) ? "glyphicon glyphicon-eye-open" : "glyphicon glyphicon-eye-closed";  
     }
 }) 
 
 Template.semesterDashboardTableRow.events({
     'click .activateSemester': function(event, tmpl) {
         Semesters.activateSemester(this._id);
-        console.log(Semesters.findOne(this._id))
+    },
+    'click .toggleLockSemester': function(event, tmpl) {
+        Semesters.toggleLock(this._id);
+    },
+    'click .toggleVisibleSemester': function(event, tmpl) {
+        SEmesters.toggleVisible(this._id);
     }
 })

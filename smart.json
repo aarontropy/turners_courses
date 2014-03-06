@@ -4,6 +4,7 @@
     "bootstrap-3": {},
     "fullcalendar": {},
     "moment": {},
-    "roles": {}
+    "roles": {},
+    "font-awesome": {}
   }
 }
