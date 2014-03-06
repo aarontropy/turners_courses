@@ -27,7 +27,7 @@ Template.adminUserEdit.events({
 // ==== ADMIN SESSION EDIT =====================================================
 Template.adminSessionEdit.events({
     'click #btnAddCourse': function(event) {
-        insertCourse({title: 'New Course', session_id: this.session._id });
+        Courses.insertCourse({title: 'New Course', session_id: this.session._id });
         // Session.set('showAddCourse', true);
     },
     'click .btnEditCourse': function(event) {
@@ -70,7 +70,7 @@ Template.adminSessionEdit.rendered = function() {
 // ==== ADMIN COURSE EDIT ======================================================
 Template.adminCourseEdit.helpers({
     meetings: function() {
-        return courseMeetings(this.course);
+        return Courses.courseMeetings(this.course);
     }
 })
 
@@ -105,6 +105,7 @@ Template.adminCourseEdit.events({
 Template.adminCourseEdit.rendered = function() {
     $('#calendar').fullCalendar({
         dayClick: function( date, allDay, jsEvent, view) {
+            console.log(date);
 
         },
 
@@ -113,7 +114,7 @@ Template.adminCourseEdit.rendered = function() {
         },
         events: function(start, end, callback) {
             var course = Courses.findOne();
-            var meetings = courseMeetings(course);
+            var meetings = Courses.courseMeetings(course);
             callback(meetings);
         },
     })
