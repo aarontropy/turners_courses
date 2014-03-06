@@ -146,7 +146,7 @@ Template.semesterDashboardTableRow.helpers({
         return (locked) ? "fa fa-lock" : "fa fa-unlock";
     },
     visibleButtonIcon: function(visible) {
-        return (visible) ? "glyphicon glyphicon-eye-open" : "glyphicon glyphicon-eye-closed";  
+        return (visible) ? "fa fa-eye" : "fa fa-eye-slash";  
     }
 }) 
 
@@ -158,6 +158,6 @@ Template.semesterDashboardTableRow.events({
         Semesters.toggleLock(this._id);
     },
     'click .toggleVisibleSemester': function(event, tmpl) {
-        SEmesters.toggleVisible(this._id);
+        Semesters.toggleVisible(this._id);
     }
 })
