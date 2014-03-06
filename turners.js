@@ -29,12 +29,14 @@ if (Meteor.isServer) {
         if (!Roles.userIsInRole(superAdmin, ['administrator'])) {
             Roles.addUsersToRoles(superAdmin, ['administrator']);
         }
-         
-
-
-
-
     });
+
+    Meteor.methods({
+        activateSemester: function(semester_id) {
+            Semesters.update({active:true},{$set: {active:false}},{multi:true});
+            Semesters.update(semester_id, {$set: {active: true}});
+        }
+    })
 
 
     Meteor.publish("semesters", function() {

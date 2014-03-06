@@ -99,7 +99,11 @@ Router.map(function() {
         template: 'adminDashboard',
         layoutTemplate: 'adminLayout',
         waitOn: function() {
-            return Meteor.subscribe('allUsers');
+            return [
+                Meteor.subscribe('allUsers'),
+                Meteor.subscribe('semesters')
+            ];
+
         }
     });
 
