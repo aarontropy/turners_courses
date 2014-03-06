@@ -26,25 +26,25 @@ Template.adminUserEdit.events({
 
 // ==== ADMIN SESSION EDIT =====================================================
 Template.adminSessionEdit.events({
-        'click #btnAddCourse': function(event) {
-            insertCourse({title: 'New Course', session_id: this.session._id });
-            // Session.set('showAddCourse', true);
-        },
-        'click .btnEditCourse': function(event) {
-            Router.go('adminCourseEdit', {_id: this._id});
-        },
-        'click .btnDeleteCourse': function(event) {
-            if(confirm("Remove " + this.title + "?")) {
-                Courses.remove(this._id);
-            }
-        },
-        'click #btnSaveSession': function(event, tmpl) {
-            Sessions.update(this.session._id, {$set: {
-                title: tmpl.find('input#sessionTitle').value,
-                startDate: tmpl.find('input#sessionStartDate').value
-            }})
+    'click #btnAddCourse': function(event) {
+        insertCourse({title: 'New Course', session_id: this.session._id });
+        // Session.set('showAddCourse', true);
+    },
+    'click .btnEditCourse': function(event) {
+        Router.go('adminCourseEdit', {_id: this._id});
+    },
+    'click .btnDeleteCourse': function(event) {
+        if(confirm("Remove " + this.title + "?")) {
+            Courses.remove(this._id);
         }
-    })
+    },
+    'click #btnSaveSession': function(event, tmpl) {
+        Sessions.update(this.session._id, {$set: {
+            title: tmpl.find('input#sessionTitle').value,
+            startDate: tmpl.find('input#sessionStartDate').value
+        }})
+    }
+});
 
 Template.adminSessionEdit.rendered = function() {
     $('#calendar').fullCalendar({
@@ -81,6 +81,7 @@ Template.adminCourseEdit.events({
             title: tmpl.find('input#courseTitle').value,
             startDate: (startDate) ? moment(startDate): undefined,
             instructor: tmpl.find('input#courseInstructor').value,
+            shortDescription: tmpl.find('textarea#courseShortDescription').value,
             rule: {
                 days: [
                     tmpl.find('input#courseSun').checked,
