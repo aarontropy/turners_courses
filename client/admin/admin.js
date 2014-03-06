@@ -25,10 +25,10 @@ Template.adminUserEdit.events({
 
 
 // ==== ADMIN SESSION EDIT =====================================================
-Template.adminSessionEdit.events({
+Template.adminSemesterEdit.events({
     'click #btnAddCourse': function(event) {
-        Courses.insertCourse({title: 'New Course', session_id: this.session._id });
-        // Session.set('showAddCourse', true);
+        Courses.insertCourse({title: 'New Course', semester_id: this.semester._id });
+        // Semester.set('showAddCourse', true);
     },
     'click .btnEditCourse': function(event) {
         Router.go('adminCourseEdit', {_id: this._id});
@@ -38,15 +38,15 @@ Template.adminSessionEdit.events({
             Courses.remove(this._id);
         }
     },
-    'click #btnSaveSession': function(event, tmpl) {
-        Sessions.update(this.session._id, {$set: {
-            title: tmpl.find('input#sessionTitle').value,
-            startDate: tmpl.find('input#sessionStartDate').value
+    'click #btnSaveSemester': function(event, tmpl) {
+        Semesters.update(this.semester._id, {$set: {
+            title: tmpl.find('input#semesterTitle').value,
+            startDate: tmpl.find('input#semesterStartDate').value
         }})
     }
 });
 
-Template.adminSessionEdit.rendered = function() {
+Template.adminSemesterEdit.rendered = function() {
     $('#calendar').fullCalendar({
         dayClick: function( date, allDay, jsEvent, view) {
 

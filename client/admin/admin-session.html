@@ -1,33 +1,33 @@
-<template name="adminSessionEdit">
+<template name="adminSemesterEdit">
     <div class="container">
-      <h1 class="page-header">{{session.title}}</h1>
-      <h4>Starting {{session.startDate}}</h4>
+      <h1 class="page-header">{{semester.title}}</h1>
+      <h4>Starting {{semester.startDate}}</h4>
         <div class="panel panel-default">
               <div class="panel-heading clearfix">
                     <h3 class="panel-title pull-left">Details</h3>
-                    <button type="button" class="btn btn-xs btn-default pull-right saveSession">Save</button>
+                    <button type="button" class="btn btn-xs btn-default pull-right saveSemester">Save</button>
               </div>
 
             <div class="panel-body">
 
                 <form action="" method="POST" class="form-horizontal" role="form">                        
                         <div class="form-group">
-                            <label for="sessionTitle" class="col-sm-2 control-label">Title</label>
+                            <label for="semesterTitle" class="col-sm-2 control-label">Title</label>
                             <div class="col-sm-10">
-                                <input type="text" name="sessionTitle" id="sessionTitle" class="form-control" value="{{session.title}}" required="required" title="">
+                                <input type="text" name="semesterTitle" id="semesterTitle" class="form-control" value="{{semester.title}}" required="required" title="">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="sessionStartDate" class="col-sm-2 control-label">Start Date</label>
+                            <label for="semesterStartDate" class="col-sm-2 control-label">Start Date</label>
                             <div class="col-sm-4">
-                                <input type="date" name="sessionStartDate" id="sessionStartDate" class="form-control" value="{{session.startDate}}" required="required" title="">
+                                <input type="date" name="semesterStartDate" id="semesterStartDate" class="form-control" value="{{semester.startDate}}" required="required" title="">
                             </div>
                         </div>
                 
                         <div class="form-group">
                             <div class="col-sm-4 col-sm-offset-2">
-                                <button type="button" id="btnSaveSession" class="btn btn-primary">Submit</button>
+                                <button type="button" id="btnSaveSemester" class="btn btn-primary">Submit</button>
                             </div>
                         </div>
                 </form>
@@ -60,7 +60,7 @@
                           </thead>
                           <tbody>
                             {{#each courses}}
-                            {{>sessionCourseTableRow}}
+                            {{>semesterCourseTableRow}}
                             {{else}}
                             <tr><td></td><td>No courses</td></tr>
                             {{/each}}
@@ -92,7 +92,7 @@
     </div>
 </template>
 
-<template name="sessionCourseTableRow">
+<template name="semesterCourseTableRow">
     <tr>
         <td style="background-color: {{colorList index}};">&nbsp;</td>
         <td>{{title}}</td>

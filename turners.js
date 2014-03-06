@@ -6,9 +6,9 @@ if (Meteor.isServer) {
 
     Meteor.startup(function() {
 
-        if (Sessions.find().count() == 0) {
+        if (Semesters.find().count() == 0) {
             for (var i=0; i<4; i++) {
-                Sessions.insert({title: "Test Session " + i});
+                Semesters.insert({title: "Test Semester " + i});
             }
         }
 
@@ -37,22 +37,22 @@ if (Meteor.isServer) {
     });
 
 
-    Meteor.publish("sessions", function() {
-        return Sessions.find();
+    Meteor.publish("semesters", function() {
+        return Semesters.find();
     });
-    Meteor.publish("session", function(id) {
-        return Sessions.find({_id: id });
+    Meteor.publish("semester", function(id) {
+        return Semesters.find({_id: id });
     })
-    Meteor.publish("sessionCourses", function(sessionId) {
-        return Courses.find({session_id: sessionId});
+    Meteor.publish("semesterCourses", function(semesterId) {
+        return Courses.find({semester_id: semesterId});
     })
-    Meteor.publish("courseWithSession", function(id) {
+    Meteor.publish("courseWithSemester", function(id) {
         // the naive approach is good enough here
         var courseCursor = Courses.find({_id: id}, {sort: {index:1}});
-        var session_id = Courses.findOne({_id: id}).session_id;
+        var semester_id = Courses.findOne({_id: id}).semester_id;
         return [
             courseCursor, 
-            Sessions.find({_id: session_id})
+            Semesters.find({_id: semester_id})
         ];
     })
     Meteor.publish("singleUser", function(userId) {
@@ -101,35 +101,4 @@ if (Meteor.isClient) {
     Handlebars.registerHelper('colorList', function(index) {
         return colorList[index % colorList.length];
     })
-
-    Template.courseEdit.helpers = {
-        session_id: function() {
-            course = Courses.findOne();
-            if (course) {
-                return course.session_id;
-            } else {
-                return
-            }
-        }
-    }
-    
-    Template.courseAdd.events = {
-        'click #saveCourse': function() {
-            Courses.insert({
-                title: $('#courseTitle').val(),
-                session_id: this.session._id,
-            });
-            Router.go('sessionDetail', {_id: this.session._id});
-        }
-    }
-
-    Template.courseEdit.events = {
-        'click #saveCourse': function() {
-            Courses.update(this._id, {$set: {
-                title: $('#courseTitle').val(),
-            }});
-            Router.go('sessionDetail', {_id: this.session_id});
-        }
-    }
-
 }

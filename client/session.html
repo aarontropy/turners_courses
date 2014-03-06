@@ -1,18 +1,18 @@
-<template name="sessionList">
-    <h1>Sessions</h1>
+<template name="semesterList">
+    <h1>Semesters</h1>
 
     <div class="container">
         <table class="table table-striped table-hover table-bordered">
             <thead>
                 <tr>
-                    <th>Session</th>
+                    <th>Semester</th>
                 </tr>
             </thead>
             <tbody>
-            {{#each sessions}}
-                {{>sessionTableRow}}
+            {{#each semesters}}
+                {{>semesterTableRow}}
             {{else}}
-                <tr><td>No Sessions</td></tr>
+                <tr><td>No Semesters</td></tr>
             {{/each}}
             </tbody>
         </table>
@@ -20,9 +20,9 @@
 </template>
 
 
-<template name="sessionTableRow">
+<template name="semesterTableRow">
     <tr>
-        <td><a href="{{pathFor 'adminSessionEdit'}}">{{title}}</a></td>
+        <td><a href="{{pathFor 'adminSemesterEdit'}}">{{title}}</a></td>
     </tr>
 </template>
 
@@ -31,16 +31,16 @@
 
 
 
-<template name="sessionDetail">
-    <h1>Details - {{session.title}}</h1>
+<template name="semesterDetail">
+    <h1>Details - {{semester.title}}</h1>
     <h2>Courses</h2>
     <ul>
         {{#each courses}}
         <li>{{title}} [<a href="{{pathFor 'courseEdit'}}">Edit</a>]</li>
         {{else}}
-        <li>No Courses for this session!!</li>
+        <li>No Courses for this semester!!</li>
         {{/each}}
-        <li>[<a href="{{pathFor 'courseAdd' session_id=session._id}}">Add</a>]</li>
+        <li>[<a href="{{pathFor 'courseAdd' semester_id=semester._id}}">Add</a>]</li>
     </ul>
 </template>
 

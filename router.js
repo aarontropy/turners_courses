@@ -8,34 +8,34 @@ Router.map(function() {
         template: 'home',
     });
 
-    this.route('sessionList', {
-        path: '/admin/sessions',
-        template: 'sessionList',
+    this.route('semesterList', {
+        path: '/admin/semesters',
+        template: 'semesterList',
         layoutTemplate: 'adminLayout',
         waitOn: function() {
-            return this.subscribe('sessions');
+            return this.subscribe('semesters');
         },
         data: function() {
             return {
-                sessions: Sessions.find(),
+                semesters: Semesters.find(),
             }
         }
     });
 
 
-    this.route('adminSessionEdit', {
-        path: '/admin/session/:_id',
-        template: 'adminSessionEdit',
+    this.route('adminSemesterEdit', {
+        path: '/admin/semester/:_id',
+        template: 'adminSemesterEdit',
         layoutTemplate: 'adminLayout',
         waitOn: function() {
             return [
-                this.subscribe('session', this.params._id),
-                this.subscribe('sessionCourses', this.params._id)
+                this.subscribe('semester', this.params._id),
+                this.subscribe('semesterCourses', this.params._id)
             ];
         },
         data: function() {
             return {
-                session: Sessions.findOne(),
+                semester: Semesters.findOne(),
                 courses: Courses.find(),
             }
         },
@@ -50,12 +50,12 @@ Router.map(function() {
         template: 'adminCourseEdit',
         layoutTemplate: 'adminLayout',
         waitOn: function() {
-            return this.subscribe('courseWithSession', this.params._id)
+            return this.subscribe('courseWithSemester', this.params._id)
         },
         data: function() {
             return {
                 course: Courses.findOne(),
-                session: Sessions.findOne(),
+                semester: Semesters.findOne(),
             }
         }
     });
